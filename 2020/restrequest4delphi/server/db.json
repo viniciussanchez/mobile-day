@@ -47,6 +47,24 @@
       "name": "Juba",
       "lastName": "Soler",
       "email": "juba@fiorilli.com.br"
+    },
+    {
+      "id": 9,
+      "name": "Beto",
+      "lastName": "Fiorilli",
+      "email": "Beto@fiorilli.com.br"
+    },
+    {
+      "id": 10,
+      "name": "Matheus",
+      "lastName": "Martins",
+      "email": "matheus@fiorilli.com.br"
+    },
+    {
+      "id": 11,
+      "name": "Richard",
+      "lastName": "Flores",
+      "email": "richard@fiorilli.com.br"
     }
   ]
 }
