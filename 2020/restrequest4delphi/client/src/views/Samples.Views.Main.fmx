@@ -7,7 +7,6 @@ object HeaderFooterForm: THeaderFooterForm
   FormFactor.Width = 1440
   FormFactor.Height = 900
   FormFactor.Devices = [Desktop]
-  OnShow = FormShow
   DesignerMasterStyle = 0
   object Header: TToolBar
     Size.Width = 384.000000000000000000
@@ -19,35 +18,38 @@ object HeaderFooterForm: THeaderFooterForm
       Size.Width = 384.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = 'toollabel'
+      StyleLookup = 'listboxitemlabel'
       TextSettings.HorzAlign = Center
       Text = 'Mobile Day'
     end
   end
   object Footer: TToolBar
     Align = Bottom
-    Position.Y = 519.000000000000000000
+    Position.Y = 527.000000000000000000
     Size.Width = 384.000000000000000000
-    Size.Height = 48.000000000000000000
+    Size.Height = 40.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'bottomtoolbar'
     TabOrder = 1
-  end
-  object Rectangle: TRectangle
-    Align = Client
-    Fill.Color = xFFEAEAEA
-    Size.Width = 384.000000000000000000
-    Size.Height = 471.000000000000000000
-    Size.PlatformDefault = False
-    Stroke.Thickness = 0.000000000000000000
-    object vsbUsers: TVertScrollBox
-      Align = Client
-      Size.Width = 384.000000000000000000
-      Size.Height = 471.000000000000000000
+    object btnListar: TButton
+      Align = Right
+      Position.X = 320.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
+      StyleLookup = 'refreshtoolbutton'
       TabOrder = 0
-      Viewport.Width = 384.000000000000000000
-      Viewport.Height = 471.000000000000000000
+      Text = 'Listar usu'#225'rios'
+      OnClick = btnListarClick
     end
+  end
+  object vsbUsers: TVertScrollBox
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 479.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Viewport.Width = 384.000000000000000000
+    Viewport.Height = 479.000000000000000000
   end
 end

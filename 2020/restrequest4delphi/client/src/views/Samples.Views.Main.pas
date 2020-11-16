@@ -12,8 +12,8 @@ type
     Footer: TToolBar;
     HeaderLabel: TLabel;
     vsbUsers: TVertScrollBox;
-    Rectangle: TRectangle;
-    procedure FormShow(Sender: TObject);
+    btnListar: TButton;
+    procedure btnListarClick(Sender: TObject);
   private
     procedure LoadUsers;
   end;
@@ -25,13 +25,20 @@ implementation
 
 {$R *.fmx}
 
-uses Samples.Providers.Frames.User, Samples.Services.User;
+uses Samples.Providers.Frames.User, Samples.Services.User, System.Threading;
 
-procedure THeaderFooterForm.FormShow(Sender: TObject);
+procedure THeaderFooterForm.btnListarClick(Sender: TObject);
+var
+  LTask: ITask;
 begin
   vsbUsers.BeginUpdate;
   try
-    Self.LoadUsers;
+    LTask := TTask.Create(
+      procedure
+      begin
+        Self.LoadUsers;
+      end);
+    LTask.Start;
   finally
     vsbUsers.EndUpdate;
   end;
@@ -44,14 +51,20 @@ var
 begin
   LService := TUserService.Create(Self);
   try
-    LService.GetUsersRESTRequest4Delphi;
+    //LService.GetUsersRESTRequest4Delphi;
+    LService.GetUsersDefault;
     while not LService.mtUsers.Eof do
     begin
-      LFrameUser := TUserFrame.Create(vsbUsers);
-      LFrameUser.Name := 'UserFrame' + LService.mtUsers.RecNo.ToString;
-      LFrameUser.Align := TAlignLayout.Top;
-      LFrameUser.lblEmail.Text := LService.mtUsersEMAIL.AsString;
-      LFrameUser.lblNome.Text := LService.mtUsersNAME.AsString;
+      TThread.Synchronize(TThread.Current,
+        procedure
+        begin
+          LFrameUser := TUserFrame.Create(vsbUsers);
+          LFrameUser.Parent := vsbUsers;
+          LFrameUser.Name := 'UserFrame' + LService.mtUsers.RecNo.ToString;
+          LFrameUser.Align := TAlignLayout.Top;
+          LFrameUser.lblEmail.Text := LService.mtUsers.FieldByName('EMAIL').AsString;
+          LFrameUser.lblNome.Text := LService.mtUsers.FieldByName('NAME').AsString;
+        end);
       LService.mtUsers.Next;
     end;
   finally
